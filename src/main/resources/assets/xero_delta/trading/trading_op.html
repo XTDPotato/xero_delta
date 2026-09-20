@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="xtd-template" content="trading-operator-v8">
+  <title>Xero Delta</title>
+  <style>
+    :root {
+      --market-bg: #101411F2;
+      --market-panel: #202722F2;
+      --market-panel-alt: #2A322CF2;
+      --market-border: #414943;
+      --market-accent: #8FD9B8;
+      --market-text: #E1E3DF;
+      --market-muted: #C0C9C2;
+      --market-danger: #FFB4AB;
+    }
+  </style>
+</head>
+<body>
+  <xtd-trading-operator data-columns="8" data-sidebar-width="50" data-card-height="56" data-card-gap="4">
+    <header data-role="topbar">
+      <nav data-role="tabs">
+        <button data-tab="buy">购买</button>
+        <button data-tab="sell">出售</button>
+        <button data-tab="history">交易记录</button>
+      </nav>
+      <output data-role="balance" data-icon="xero_delta:textures/quality/coin.png"></output>
+    </header>
+    <main data-role="sell-workspace">
+      <section data-role="owned-listings" data-expire-after-game-days="10">
+        <h2 data-bind="listing-count listing-limit">我的挂单</h2>
+        <div data-bind="active-and-expired-listings listing-public-id listing-remaining-time"></div>
+        <button data-action="relist-listing">重新上架</button>
+        <button data-action="view-listing">查看</button>
+        <button data-action="cancel-listing">下架</button>
+        <button data-action="multi-select">多选</button>
+        <button data-action="batch-relist">批量重新上架</button>
+        <button data-action="batch-cancel">批量下架</button>
+      </section>
+      <section data-role="sources">
+        <input data-role="source-search" type="search" placeholder="搜索物品栏和所有背包">
+        <section data-role="source-groups" data-bind="inventory-and-all-backpacks available-count">
+          <template data-template="source-group">
+            <header data-bind="source-group-icon source-group-name"></header>
+            <div data-bind="source-group-items"></div>
+          </template>
+        </section>
+      </section>
+    </main>
+    <section data-role="listing-detail">
+      <section data-role="price-distribution" data-order="lowest-to-highest">
+        <output data-role="empty-prices">交易行中暂无此物品在售</output>
+        <output data-role="lowest-price" data-icon="xero_delta:textures/quality/coin.png"></output>
+        <canvas data-bind="same-item-live-price-bars click-to-select-price"></canvas>
+      </section>
+      <section data-role="item-editor">
+        <div data-bind="selected-item-preview"></div>
+        <div data-role="amount-stepper">
+          <button data-action="decrease-amount">-</button>
+          <input data-role="detail-amount-slider" type="range" min="1" data-max="available-count"
+                 step="1" data-segments="integer">
+          <button data-action="increase-amount">+</button>
+        </div>
+        <div data-role="price-stepper" data-step="item-value-1-percent">
+          <button data-action="decrease-price">-</button>
+          <input data-role="detail-price-input" type="number" data-min="item-value-10-percent"
+                 data-max="item-value-300-percent">
+          <button data-action="increase-price">+</button>
+        </div>
+        <output data-role="expected-income" data-bind="after-fee-and-guarantee"
+                data-icon="xero_delta:textures/quality/coin.png"></output>
+        <output data-role="income-info" data-bind="gross-price fee guarantee expected-income"></output>
+        <button data-action="list-current">上架</button>
+      </section>
+    </section>
+  </xtd-trading-operator>
+</body>
+</html>

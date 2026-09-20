@@ -1,0 +1,7 @@
+{
+  "order": 150,
+  "size": 1,
+  "icon": "xero_delta:slot/empty_safety_box_slot",
+  "drop_rule": "ALWAYS_KEEP",
+  "validators": ["curios:tag"]
+}

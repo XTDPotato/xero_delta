@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "ICI",
+    "ERE",
+    "ICI"
+  ],
+  "key": {
+    "I": { "item": "minecraft:iron_ingot" },
+    "C": { "item": "minecraft:copper_ingot" },
+    "E": { "item": "minecraft:emerald" },
+    "R": { "item": "minecraft:redstone" }
+  },
+  "result": {
+    "id": "xero_delta:trading_market",
+    "count": 1
+  }
+}

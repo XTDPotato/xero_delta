@@ -1,0 +1,24 @@
+{
+  "loader": "neoforge:separate_transforms",
+  "gui_light": "front",
+  "base": {
+    "parent": "minecraft:item/generated",
+    "textures": {
+      "layer0": "xero_delta:item/portable_chest_bag"
+    }
+  },
+  "perspectives": {
+    "firstperson_righthand": {
+      "parent": "xero_delta:item/held/portable_chest_bag"
+    },
+    "firstperson_lefthand": {
+      "parent": "xero_delta:item/held/portable_chest_bag"
+    },
+    "thirdperson_righthand": {
+      "parent": "xero_delta:item/held/portable_chest_bag"
+    },
+    "thirdperson_lefthand": {
+      "parent": "xero_delta:item/held/portable_chest_bag"
+    }
+  }
+}

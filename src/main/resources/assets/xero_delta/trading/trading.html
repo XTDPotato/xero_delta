@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="xtd-template" content="trading-market-v13">
+  <title>Xero Delta</title>
+  <style>
+    :root {
+      --market-bg: #101411F2;
+      --market-panel: #202722F2;
+      --market-panel-alt: #2A322CF2;
+      --market-border: #414943;
+      --market-accent: #8FD9B8;
+      --market-text: #E1E3DF;
+      --market-muted: #C0C9C2;
+      --market-danger: #FFB4AB;
+    }
+    xtd-market { display:grid; grid-template-columns:minmax(150px,210px) 1fr; }
+    [data-role="topbar"] { grid-column:1 / -1; }
+    [data-role="catalogue"] { overflow:auto; }
+  </style>
+</head>
+<body>
+  <xtd-market data-columns="3" data-columns-min="1" data-columns-max="10"
+              data-custom-category-sections="false"
+              data-sidebar-width="210" data-card-height="82" data-card-gap="6">
+    <header data-role="topbar">
+      <nav data-role="tabs">
+        <button data-tab="buy">购买</button>
+        <button data-tab="sell">出售</button>
+        <button data-tab="history">交易记录</button>
+      </nav>
+      <output data-role="balance" data-icon="xero_delta:textures/quality/coin.png"></output>
+    </header>
+
+    <aside data-role="filters">
+      <input data-role="search" type="search" placeholder="输入名称、物品 ID 或模组名">
+      <section data-role="categories">
+        <button data-category="all">全部物品</button>
+        <button data-category="favorites">★ 收藏物品</button>
+        <section data-category-section="combat" data-category-label="战斗"
+                 data-category-icon="minecraft:crossbow" data-expanded="true">
+          <button data-category="guns">枪械</button>
+          <button data-category="equipment">装备</button>
+          <button data-category="attachments">配件</button>
+          <button data-category="ammo">弹药</button>
+        </section>
+        <section data-category-section="supplies" data-category-label="物资"
+                 data-category-icon="minecraft:cooked_beef">
+          <button data-category="consumables">消耗品</button>
+          <button data-category="keys">钥匙 / 地图</button>
+          <button data-category="materials">原材料</button>
+          <button data-category="collectibles">收藏品</button>
+        </section>
+        <section data-category-section="building" data-category-label="建造"
+                 data-category-icon="minecraft:bricks">
+          <button data-category="blocks">方块</button>
+          <button data-category="redstone">红石</button>
+          <button data-category="tools">工具</button>
+        </section>
+      </section>
+      <section data-role="groups">
+        <button data-group="all">全部</button>
+        <button data-group="vanilla">原版</button>
+        <button data-group="modded">模组</button>
+      </section>
+    </aside>
+
+    <main data-role="content">
+      <section data-role="catalogue-toolbar">
+        <button data-action="decrease-columns">减少每行项目</button>
+        <output data-bind="catalogue-columns"></output>
+        <button data-action="increase-columns">增加每行项目</button>
+      </section>
+      <section data-role="catalogue" data-bind="active-market-view">
+        <template data-template="listing-card">
+          <article data-bind="lowest-listing-by-item-components">
+            <button data-action="select-listing"
+                    data-bind="item-preview item-name lowest-price"></button>
+            <button data-action="toggle-favorite" data-favorite-scope="item-id"
+                    aria-label="收藏物品类型">★</button>
+          </article>
+        </template>
+        <template data-template="source-card">
+          <article data-bind="sale-source">
+            <button data-action="select-source"
+                    data-bind="item-preview item-name source-name stack-count"></button>
+            <output data-bind="item-value"
+                    data-icon="xero_delta:textures/quality/coin.png"></output>
+          </article>
+        </template>
+        <template data-template="history-card">
+          <article data-bind="trade-record">
+            <button data-action="select-history-record"
+                    data-bind="item-preview item-name buyer-name seller-name completed-price"></button>
+          </article>
+        </template>
+      </section>
+    </main>
+
+    <section data-role="purchase-detail" data-bind="selected-item-lowest-listing">
+      <section data-role="price-distribution" data-points="8" data-order="lowest-to-highest">
+        <output data-role="lowest-price"
+                data-icon="xero_delta:textures/quality/coin.png"></output>
+        <canvas data-bind="eight-live-price-points"></canvas>
+      </section>
+      <aside data-role="item-detail">
+        <div data-bind="item-preview item-name item-id seller-name"></div>
+        <div data-role="purchase-amount-control">
+          <button data-action="decrease-purchase-amount">−</button>
+          <input data-role="purchase-amount-slider" type="range" min="1" max="64" step="1">
+          <button data-action="increase-purchase-amount">+</button>
+          <input data-role="purchase-amount-input" type="number" min="1" max="640">
+        </div>
+        <output data-role="purchase-price" data-bind="current-lowest-price"
+                data-icon="xero_delta:textures/quality/coin.png"></output>
+        <button data-action="confirm-buy">购买</button>
+      </aside>
+    </section>
+
+    <section data-role="history-detail" data-bind="selected-trade-record">
+      <div data-bind="item-preview item-name listing-public-id seller-name buyer-name
+                      completed-time completed-amount completed-price"></div>
+    </section>
+
+    <footer data-role="actions">
+      <button data-action="buy-listing">查看购买详情</button>
+      <button data-action="open-listing-screen">上架</button>
+      <button data-action="open-recycling">回收</button>
+      <button data-action="view-history-details">详情</button>
+      <button data-action="refresh-market">刷新</button>
+      <button data-action="delete-history">删除</button>
+      <button data-action="delete-all-history">删除所有</button>
+    </footer>
+  </xtd-market>
+</body>
+</html>

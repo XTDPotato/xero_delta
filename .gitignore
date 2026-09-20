@@ -1,0 +1,46 @@
+# eclipse
+bin
+*.launch
+.settings
+.metadata
+.classpath
+.project
+
+# idea
+out
+*.ipr
+*.iws
+*.iml
+.idea
+
+# gradle
+build
+.gradle
+
+# other
+eclipse
+run
+
+# Files from Forge MDK
+forge*changelog.txt
+
+# Local instances, diagnostics and agent scratch files
+/mods/
+/config/
+/defaultconfigs/
+/logs/
+/.codex/
+/.agents/
+/.codex_refs/
+/.codex-review/
+/.delta-spot-staging/
+/.learnings/
+/.tmp*
+/.codex-*.png
+/skills/
+/net/
+/*.hprof
+/build_*.txt
+/build_*.log
+/temp_*.txt
+/patch*.txt

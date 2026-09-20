@@ -1,0 +1,24 @@
+{
+  "loader": "neoforge:separate_transforms",
+  "gui_light": "front",
+  "base": {
+    "parent": "minecraft:item/generated",
+    "textures": {
+      "layer0": "xero_delta:item/quick_recon_chest_rig"
+    }
+  },
+  "perspectives": {
+    "firstperson_righthand": {
+      "parent": "xero_delta:item/held/quick_recon_chest_rig"
+    },
+    "firstperson_lefthand": {
+      "parent": "xero_delta:item/held/quick_recon_chest_rig"
+    },
+    "thirdperson_righthand": {
+      "parent": "xero_delta:item/held/quick_recon_chest_rig"
+    },
+    "thirdperson_lefthand": {
+      "parent": "xero_delta:item/held/quick_recon_chest_rig"
+    }
+  }
+}

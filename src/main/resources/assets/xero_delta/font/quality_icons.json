@@ -1,0 +1,46 @@
+{
+  "providers": [
+    {
+      "type": "bitmap",
+      "file": "xero_delta:quality/gray.png",
+      "ascent": 8,
+      "height": 9,
+      "chars": ["\uE000"]
+    },
+    {
+      "type": "bitmap",
+      "file": "xero_delta:quality/green.png",
+      "ascent": 8,
+      "height": 9,
+      "chars": ["\uE001"]
+    },
+    {
+      "type": "bitmap",
+      "file": "xero_delta:quality/blue.png",
+      "ascent": 8,
+      "height": 9,
+      "chars": ["\uE002"]
+    },
+    {
+      "type": "bitmap",
+      "file": "xero_delta:quality/purple.png",
+      "ascent": 8,
+      "height": 9,
+      "chars": ["\uE003"]
+    },
+    {
+      "type": "bitmap",
+      "file": "xero_delta:quality/gold.png",
+      "ascent": 8,
+      "height": 9,
+      "chars": ["\uE004"]
+    },
+    {
+      "type": "bitmap",
+      "file": "xero_delta:quality/red.png",
+      "ascent": 8,
+      "height": 9,
+      "chars": ["\uE005"]
+    }
+  ]
+}

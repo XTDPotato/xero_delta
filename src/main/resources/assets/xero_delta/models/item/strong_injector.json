@@ -1,0 +1,24 @@
+{
+  "loader": "neoforge:separate_transforms",
+  "gui_light": "front",
+  "base": {
+    "parent": "minecraft:item/generated",
+    "textures": {
+      "layer0": "xero_delta:item/strong_injector"
+    }
+  },
+  "perspectives": {
+    "firstperson_righthand": {
+      "parent": "xero_delta:item/held/strong_injector"
+    },
+    "firstperson_lefthand": {
+      "parent": "xero_delta:item/held/strong_injector"
+    },
+    "thirdperson_righthand": {
+      "parent": "xero_delta:item/held/strong_injector"
+    },
+    "thirdperson_lefthand": {
+      "parent": "xero_delta:item/held/strong_injector"
+    }
+  }
+}

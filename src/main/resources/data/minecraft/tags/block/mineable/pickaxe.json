@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "xero_delta:trading_market",
+    "xero_delta:recycling_station"
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "required": true,
+  "package": "com.xtdpotato.xero_delta.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "AbstractContainerMenuMixin",
+    "BetterLootingBatchPickupMixin",
+    "ClientSortHandlerMixin",
+    "EquipmentDurabilityMixin",
+    "InventorySorterScrollWheelMixin",
+    "InventorySorterSortingHandlerMixin",
+    "InventoryMixin",
+    "KnifeSlotMixin",
+    "QuickMoveMixin",
+    "SophisticatedSorterCoreMixin",
+    "SophisticatedStorageMenuMixin",
+    "SophisticatedTransferItemsMixin"
+  ],
+  "client": [
+    "AbstractContainerScreenMixin",
+    "AnvilScreenMixin",
+    "BetterLootingInteractionMixin",
+    "BetterLootingInventoryLootListMixin",
+    "BetterLootingLongPressMixin",
+    "ClientTooltipComponentMixin",
+    "ChatComponentMixin",
+    "CraftingScreenMixin",
+    "EntityRendererMixin",
+    "EffectRenderingInventoryScreenMixin",
+    "GameRendererMixin",
+    "GuiGraphicsMixin",
+    "GuiOverlayMessageMixin",
+    "HumanoidModelMixin",
+    "ItemInHandLayerMixin",
+    "MinecraftMixin",
+    "MouseHandlerMixin",
+    "RecipeBookComponentMixin",
+    "ScreenMixin",
+    "SophisticatedStorageScreenMixin",
+    "FtbSidebarButtonManagerMixin"
+  ],
+  "server": [],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "targets": [ "swap" ],
+  "passes": [
+    {
+      "name": "xero_delta:chromatic_aberration",
+      "intarget": "minecraft:main",
+      "outtarget": "swap",
+      "use_linear_filter": true,
+      "uniforms": [
+        { "name": "BlurDir", "values": [ 1.0, 0.0 ] },
+        { "name": "BlurRadius", "values": [ 2.5 ] },
+        { "name": "AberrationStrength", "values": [ 0.0 ] }
+      ]
+    },
+    {
+      "name": "xero_delta:chromatic_aberration",
+      "intarget": "swap",
+      "outtarget": "minecraft:main",
+      "use_linear_filter": true,
+      "uniforms": [
+        { "name": "BlurDir", "values": [ 0.0, 1.0 ] },
+        { "name": "BlurRadius", "values": [ 2.5 ] },
+        { "name": "AberrationStrength", "values": [ 1.0 ] }
+      ]
+    },
+    {
+      "name": "xero_delta:color_grade",
+      "intarget": "minecraft:main",
+      "outtarget": "swap",
+      "use_linear_filter": true,
+      "uniforms": [
+        { "name": "Saturation", "values": [ 0.3 ] },
+        { "name": "Contrast", "values": [ 0.3 ] }
+      ]
+    },
+    {
+      "name": "xero_delta:color_grade",
+      "intarget": "swap",
+      "outtarget": "minecraft:main",
+      "use_linear_filter": true,
+      "uniforms": [
+        { "name": "Saturation", "values": [ 1.0 ] },
+        { "name": "Contrast", "values": [ 1.0 ] }
+      ]
+    }
+  ]
+}

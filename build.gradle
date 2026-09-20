@@ -1,0 +1,173 @@
+plugins {
+    id "java-library"
+    id "eclipse"
+    id "idea"
+    id "maven-publish"
+    id "net.neoforged.moddev" version "2.0.141"
+}
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+
+version = mod_version
+println "[XeroDelta] Build version: ${mod_version}"
+
+base {
+    archivesName = "XeroDelta-${minecraft_version}-NeoForge"
+}
+
+neoForge {
+    version = neo_version
+
+    mods {
+        "${mod_id}" {
+            sourceSet(sourceSets.main)
+        }
+    }
+
+    unitTest {
+        enable()
+        testedMod = mods.getByName(mod_id)
+    }
+
+    runs {
+        client {
+            client()
+        }
+        server {
+            server()
+            programArguments.add("--nogui")
+        }
+    }
+}
+
+repositories {
+    maven {
+        name = "Curios Maven"
+        url = "https://maven.theillusivec4.top/"
+    }
+    mavenCentral()
+}
+
+dependencies {
+    implementation "top.theillusivec4.curios:curios-neoforge:${curios_version}"
+    testImplementation platform("org.junit:junit-bom:5.10.2")
+    testImplementation "org.junit.jupiter:junit-jupiter"
+    testRuntimeOnly "org.junit.platform:junit-platform-launcher"
+    testRuntimeOnly files(findProperty("delta_spot_test_jar")
+        ?: "../Delta Spot/build/libs/xero_delta_spot-1.21.1-neoforge-0.1.0.jar")
+}
+
+tasks.named("test", Test).configure {
+    useJUnitPlatform()
+    // Existing resource and layout tests resolve fixtures from the project root.
+    doFirst {
+        workingDir projectDir
+    }
+}
+
+tasks.named("processResources", ProcessResources).configure {
+    var replaceProperties = [
+        minecraft_version: minecraft_version,
+        minecraft_version_range: minecraft_version_range,
+        neo_version: neo_version,
+        neo_version_range: neo_version_range,
+        loader_version_range: loader_version_range,
+        mod_id: mod_id,
+        mod_name: mod_name,
+        mod_license: mod_license,
+        mod_version: mod_version,
+        mod_authors: mod_authors,
+        mod_description: mod_description,
+    ]
+    inputs.properties replaceProperties
+    filesMatching(["META-INF/neoforge.mods.toml"]) {
+        expand replaceProperties + [project: project]
+    }
+}
+
+tasks.named("jar", Jar).configure {
+    from("LICENSE") {
+        into("META-INF")
+        rename { "LICENSE.txt" }
+    }
+    manifest {
+        attributes([
+            "Specification-Title": mod_id,
+            "Specification-Vendor": mod_authors,
+            "Specification-Version": "1",
+            "Implementation-Title": project.name,
+            "Implementation-Version": project.jar.archiveVersion,
+            "Implementation-Vendor": mod_authors,
+        ])
+    }
+}
+
+def githubBackupDirectory = file(findProperty("github_backup_dir")
+    ?: layout.buildDirectory.dir("backups").get().asFile)
+
+def githubSourceMetadata = tasks.register("githubSourceMetadata") {
+    inputs.files(".gitignore", ".gitattributes")
+    def destination = layout.buildDirectory.dir("source-metadata")
+    outputs.dir(destination)
+    doLast {
+        def directory = destination.get().asFile
+        directory.mkdirs()
+        ["gitignore", "gitattributes"].each { name ->
+            new File(directory, name).bytes = file(".${name}").bytes
+        }
+    }
+}
+
+def githubSourceZip = tasks.register("githubSourceZip", Zip) {
+    group = "distribution"
+    description = "Packages the main source, resources, tests and build files for GitHub."
+    archiveFileName = "XeroDelta-${minecraft_version}-NeoForge-${project.version}-github-source.zip"
+    destinationDirectory = layout.buildDirectory.dir("distributions")
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    preserveFileTimestamps = false
+    reproducibleFileOrder = true
+    includeEmptyDirs = false
+
+    // Stage without leading dots to avoid Ant's default metadata exclusions.
+    dependsOn githubSourceMetadata
+    from(layout.buildDirectory.dir("source-metadata")) {
+        rename { ".${it}" }
+    }
+    from(projectDir) {
+        include ".github/workflows/build.yml"
+        include "src/main/**", "src/test/**"
+        include "gradle/**"
+        include "tools/verify_item_detail.gradle"
+        include "docs/IMPLEMENTATION.md"
+        include ".gitattributes", ".gitignore"
+        include "build.gradle", "settings.gradle", "gradle.properties"
+        include "gradlew", "gradlew.bat"
+        include "LICENSE", "LICENSE.txt"
+        include "README.md", "CREDITS.txt"
+        exclude "src/generated/**/.cache/**"
+    }
+}
+
+def backupGithubSource = tasks.register("backupGithubSource", Copy) {
+    group = "distribution"
+    description = "Copies the versioned GitHub source package to the backup directory."
+    dependsOn githubSourceZip
+    from(githubSourceZip.flatMap { it.archiveFile })
+    into githubBackupDirectory
+    doLast {
+        logger.lifecycle("[XeroDelta] GitHub source backup: ${
+            new File(githubBackupDirectory, githubSourceZip.get().archiveFileName.get())}")
+    }
+}
+
+// Running jar directly or through assemble/build always refreshes the GitHub source backup.
+tasks.named("jar").configure {
+    finalizedBy backupGithubSource
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = "UTF-8"
+    // Keep source files and line numbers for useful crash reports, but omit
+    // local-variable debug tables that the game never reads at runtime.
+    options.debugOptions.debugLevel = "source,lines"
+}

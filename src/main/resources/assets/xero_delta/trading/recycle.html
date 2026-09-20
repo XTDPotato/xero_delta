@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="xtd-template" content="recycling-station-v3">
+  <title>Xero Delta 回收站</title>
+  <style>
+    :root {
+      --market-bg: #101411F2;
+      --market-panel: #202722F2;
+      --market-panel-alt: #2A322CF2;
+      --market-border: #414943;
+      --market-accent: #8FD9B8;
+      --market-text: #E1E3DF;
+      --market-muted: #C0C9C2;
+      --market-danger: #FFB4AB;
+    }
+  </style>
+</head>
+<body>
+  <xtd-recycling data-columns="3" data-sidebar-width="210" data-card-height="104" data-card-gap="6"
+                 data-custom-category-sections="false">
+    <header data-role="topbar">
+      <h1>回收站</h1>
+      <output data-role="balance" data-icon="xero_delta:textures/quality/coin.png"></output>
+      <output data-role="toast" data-icon="xero_delta:textures/quality/coin.png"></output>
+    </header>
+    <aside data-role="filters">
+      <input data-role="search" type="search" placeholder="搜索物品栏和所有背包">
+      <section data-role="categories">
+        <button data-category="all">全部物品</button>
+        <button data-category="favorites">★ 收藏物品</button>
+        <section data-category-section="combat" data-category-label="战斗"
+                 data-category-icon="minecraft:crossbow" data-expanded="true">
+          <button data-category="guns">枪械</button>
+          <button data-category="equipment">装备</button>
+          <button data-category="attachments">配件</button>
+          <button data-category="ammo">弹药</button>
+        </section>
+        <section data-category-section="supplies" data-category-label="物资"
+                 data-category-icon="minecraft:cooked_beef">
+          <button data-category="consumables">消耗品</button>
+          <button data-category="keys">钥匙 / 地图</button>
+          <button data-category="materials">原材料</button>
+          <button data-category="collectibles">收藏品</button>
+        </section>
+        <section data-category-section="building" data-category-label="建造"
+                 data-category-icon="minecraft:bricks">
+          <button data-category="blocks">方块</button>
+          <button data-category="redstone">红石</button>
+          <button data-category="tools">工具</button>
+        </section>
+      </section>
+      <section data-role="groups">
+        <button data-group="all">全部</button>
+        <button data-group="vanilla">原版</button>
+        <button data-group="modded">模组</button>
+      </section>
+    </aside>
+    <main data-role="catalogue" data-bind="inventory-and-all-backpacks selected-source">
+      <button data-action="decrease-columns">-</button>
+      <output data-bind="catalogue-columns"></output>
+      <button data-action="increase-columns">+</button>
+    </main>
+    <footer data-role="actions">
+      <button data-action="recycle">出售给军需处</button>
+      <button data-action="confirm-recycle">确认出售</button>
+      <button data-action="open-operator">上架交易行</button>
+    </footer>
+  </xtd-recycling>
+</body>
+</html>

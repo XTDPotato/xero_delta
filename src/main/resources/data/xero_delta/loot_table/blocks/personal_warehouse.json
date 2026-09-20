@@ -1,0 +1,1 @@
+{"type":"minecraft:block","pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"xero_delta:personal_warehouse"}],"conditions":[{"condition":"minecraft:survives_explosion"}]}]}

@@ -1,0 +1,16 @@
+Xero Delta third-party notices
+==============================
+
+Xero Delta is released under the MIT License; see LICENSE.
+External mods retain their own licenses.
+
+The settings UI is implemented with Minecraft widgets and Xero Delta's
+Material 3 drawing helpers. Super Resolution, NanoVG and Yoga are no longer
+required or bundled.
+
+Material Symbols
+Copyright Google LLC. Material Symbols raster icon artwork is used under the
+Apache License 2.0.
+
+Minecraft and NeoForge remain the property of their respective owners and are
+not relicensed by these projects.

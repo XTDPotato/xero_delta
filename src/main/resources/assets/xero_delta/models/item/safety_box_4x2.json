@@ -1,0 +1,24 @@
+{
+  "loader": "neoforge:separate_transforms",
+  "gui_light": "front",
+  "base": {
+    "parent": "minecraft:item/generated",
+    "textures": {
+      "layer0": "xero_delta:item/safety_box_4x2"
+    }
+  },
+  "perspectives": {
+    "firstperson_righthand": {
+      "parent": "xero_delta:item/held/safety_box_4x2"
+    },
+    "firstperson_lefthand": {
+      "parent": "xero_delta:item/held/safety_box_4x2"
+    },
+    "thirdperson_righthand": {
+      "parent": "xero_delta:item/held/safety_box_4x2"
+    },
+    "thirdperson_lefthand": {
+      "parent": "xero_delta:item/held/safety_box_4x2"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "targets": [ "swap" ],
+  "passes": [
+    {
+      "name": "xero_delta:color_grade",
+      "intarget": "minecraft:main",
+      "outtarget": "swap",
+      "use_linear_filter": true,
+      "uniforms": [
+        { "name": "Saturation", "values": [ 0.3 ] },
+        { "name": "Contrast", "values": [ 0.3 ] }
+      ]
+    },
+    {
+      "name": "xero_delta:color_grade",
+      "intarget": "swap",
+      "outtarget": "minecraft:main",
+      "use_linear_filter": true,
+      "uniforms": [
+        { "name": "Saturation", "values": [ 1.0 ] },
+        { "name": "Contrast", "values": [ 1.0 ] }
+      ]
+    }
+  ]
+}

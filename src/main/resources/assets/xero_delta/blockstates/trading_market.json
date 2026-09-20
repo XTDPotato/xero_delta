@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "xero_delta:block/trading_market" }
+  }
+}

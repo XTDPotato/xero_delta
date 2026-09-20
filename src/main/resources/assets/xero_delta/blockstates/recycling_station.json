@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "xero_delta:block/recycling_station" }
+  }
+}

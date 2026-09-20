@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "slots": [
+    {
+      "type": "chest_rig",
+      "added": true
+    },
+    {
+      "type": "backpack",
+      "added": true
+    },
+    {
+      "type": "card_holder",
+      "added": true
+    },
+    {
+      "type": "safety_box",
+      "added": true
+    }
+  ]
+}

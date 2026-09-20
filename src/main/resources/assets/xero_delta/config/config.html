@@ -1,0 +1,26 @@
+<!-- xero-delta-config-v2: presentation and callable action manifest -->
+<style>
+:root {
+  --market-bg: #101411;
+  --market-panel: #202722;
+  --market-panel-alt: #2A322C;
+  --market-border: #414943;
+  --market-accent: #8FD9B8;
+  --market-text: #E1E3DF;
+  --market-muted: #C0C9C2;
+}
+</style>
+<nav>
+  <span data-tab="about"></span><span data-tab="safety"></span><span data-tab="grid"></span>
+  <span data-tab="quality"></span><span data-tab="tooltip"></span><span data-tab="delta"></span>
+</nav>
+<section data-group="safety">
+  <button data-action="safety_box_config"></button>
+  <button data-action="quick_move"></button>
+  <button data-action="item_access"></button>
+  <button data-action="safety_layout"></button>
+  <input data-action="quick_move_threshold" />
+</section>
+<section data-group="grid"><button data-action="item_grid"></button><button data-action="container_grid"></button><button data-action="grid_formulas"></button></section>
+<section data-group="tooltip"><input data-action="tooltip_scale" /><input data-action="tooltip_padding" /><button data-action="tooltip_mode"></button></section>
+<section data-group="delta"><button data-action="delta_layout"></button></section>

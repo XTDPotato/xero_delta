@@ -1,0 +1,8 @@
+{
+  "sources": [
+    {
+      "type": "minecraft:single",
+      "resource": "xero_delta:uv/safety_box_3x3_box"
+    }
+  ]
+}

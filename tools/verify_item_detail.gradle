@@ -1,0 +1,32 @@
+// Run pure layout/resource regressions without bootstrapping a Minecraft instance:
+// gradlew --no-daemon --max-workers=1 -I tools/verify_item_detail.gradle verifyItemDetail
+// The same init script also exposes verifyCreativeRules.
+allprojects {
+    afterEvaluate {
+        [
+            verifyItemDetail: ["**/ItemDetailLayoutTest.class", "**/ItemDetailVisualResourcesTest.class",
+                "**/SplitDropGuardIntegrationTest.class"],
+            verifyCreativeRules: ["**/CreativeRuleEditorLayoutTest.class", "**/CreativeRuleEditorIntegrationTest.class"],
+            verifyMaterialSettings: ["**/Material3NativeSettingsTest.class",
+                "**/Material3UiConsistencyTest.class", "**/MaterialSliderValueTest.class",
+                "**/Material3ThemeTest.class"]
+        ].each { taskName, tests ->
+            tasks.register(taskName, Test) {
+                dependsOn tasks.named("testClasses")
+                testClassesDirs = sourceSets.test.output.classesDirs
+                classpath = files(sourceSets.main.output, sourceSets.test.output,
+                    configurations.testRuntimeClasspath.filter {
+                        it.name.startsWith("junit-jupiter-") || it.name.startsWith("junit-platform-")
+                            || it.name.startsWith("opentest4j-")
+                            || it.name.startsWith("apiguardian-") || it.name.startsWith("gson-")
+                    })
+                include tests
+                useJUnitPlatform()
+                javaLauncher = javaToolchains.launcherFor {
+                    languageVersion = JavaLanguageVersion.of(21)
+                }
+                workingDir projectDir
+            }
+        }
+    }
+}

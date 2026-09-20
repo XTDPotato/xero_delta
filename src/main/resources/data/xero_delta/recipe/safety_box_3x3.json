@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "ODO",
+	" S "
+  ],
+  "key": {
+    "O": { "item": "minecraft:obsidian" },
+    "D": { "item": "minecraft:diamond" },
+	"S": { "item": "minecraft:iron_block" }
+  },
+  "result": { "id": "xero_delta:safety_box_3x3", "count": 1 }
+}
