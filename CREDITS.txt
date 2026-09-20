@@ -27,10 +27,12 @@ required, or replace it with material you are authorized to use.
 Educational or noncommercial intent, attribution and this notice are not
 statements that permission has been obtained.
 
-For a rights-related report, identify the affected repository paths, the
-original material and the relevant rights or permission information through
-the repository's available contact channels. The project has stopped
-development and does not promise a response time.
+If you believe that content in this project infringes your rights, please
+contact us through the repository's available contact channels and identify
+the affected file paths, the original work and information establishing your
+rights. Once the infringement is verified, we will remove or replace the
+affected content. The project has stopped development and does not promise
+a response time.
 
 The settings UI is implemented with Minecraft widgets and Xero Delta's
 Material 3 drawing helpers. Super Resolution, NanoVG and Yoga are no longer
