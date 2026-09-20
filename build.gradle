@@ -138,7 +138,7 @@ def githubSourceZip = tasks.register("githubSourceZip", Zip) {
         include "src/main/**", "src/test/**"
         include "gradle/**"
         include "tools/verify_item_detail.gradle"
-        include "docs/IMPLEMENTATION.md"
+        include "docs/IMPLEMENTATION.md", "docs/REFERENCE.md", "docs/commands.md"
         include ".gitattributes", ".gitignore"
         include "build.gradle", "settings.gradle", "gradle.properties"
         include "gradlew", "gradlew.bat"

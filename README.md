@@ -16,10 +16,67 @@ Minecraft 1.21.1 / NeoForge / Java 21。项目提供占格物品栏、安全箱�
 
 ## 文档
 
-- [功能实现说明](docs/IMPLEMENTATION.md)：从入口、数据、算法、操作到网络同步解释各系统。
-- [目录结构与阅读路线](docs/IMPLEMENTATION.md#目录结构树)：主要包及代表性文件。
-- [占格系统详解](docs/IMPLEMENTATION.md#占格系统)：锚点、尺寸、旋转、碰撞、排序和容器存储。
+| 文档 | 内容 | 适合读者 |
+| --- | --- | --- |
+| [功能实现说明](docs/IMPLEMENTATION.md) | 架构、结构树、功能机制、关键流程、兼容与测试边界 | 使用者、整合包作者、接手维护者 |
+| [配置与数据参考](docs/REFERENCE.md) | TOML 配置、文件路径、全部 SavedData 类、组件、网络包方向 | 服主、开发者 |
+| [命令参考](docs/commands.md) | 命令树、参数、旧命令映射、权限差异、邮件 JSON 示例 | 服主、地图作者 |
+| [占格系统详解](docs/IMPLEMENTATION.md#占格系统) | 锚点、尺寸、旋转、碰撞、排序和容器存储 | 占格功能维护者 |
+| [验证与已知限制](docs/IMPLEMENTATION.md#验证与已知限制) | 已运行检查、未验证场景、当前源码与历史需求的差异 | 所有读者 |
+
+这些文档按当前源码编写，不把历史需求、截图或类名本身当作已完成的功能。
+“存在实现”“专项测试通过”“游戏内已验证”是不同结论。
+
 - [许可证](LICENSE) 与 [第三方声明](CREDITS.txt)。
+
+## 项目内容
+
+| 系统 | 已有实现 | 详细说明 |
+| --- | --- | --- |
+| 占格物品栏 | 多格尺寸、锚点存储、旋转、叠加、交换、拆分、整理、跨来源转移 | [占格](docs/IMPLEMENTATION.md#占格系统) |
+| 安全箱与装备 | 五种安全箱、限时解锁、到期只取不存、皮肤、检视、胸挂、背包、卡包 | [装备](docs/IMPLEMENTATION.md#安全箱背包与装备) |
+| 尸体搜刮 | 尸体菜单、实体规则、载具加权生成、搜索进度、地面背包 | [搜刮](docs/IMPLEMENTATION.md#尸体与附近掉落物) |
+| 物品详情 | 占格比例预览、详情分区滚动、收藏、拆分及操作请求 | [详情](docs/IMPLEMENTATION.md#搜索与物品详情) |
+| 物品规则 | 六档品质、尺寸、价格、重量、组件变体、耐久范围、自动计算及批量重置 | [规则](docs/IMPLEMENTATION.md#品质价格重量与自动计算) |
+| 创造编辑器 | 品质/尺寸/价格草稿、多选、框选、撤销重做、批量提交 | [创造模式](docs/IMPLEMENTATION.md#创造模式规则编辑) |
+| 个人仓库 | 玩家独立仓储、七种分类、主仓扩容、命名、转移 | [仓库](docs/IMPLEMENTATION.md#个人仓库) |
+| 交易与经济 | 钱包、上架、购买、交易记录、收藏、回收、配方供需市场 | [交易](docs/IMPLEMENTATION.md#交易回收与配方市场) |
+| 邮件 | 收件箱、附件领取、广播、离线收件人、发送历史与撤回路径 | [邮件](docs/IMPLEMENTATION.md#邮件) |
+| 战局收益 | 与钱包分开的收益记录、奖励发放、撤离结算 | [收益与权限](docs/IMPLEMENTATION.md#战局收益与功能权限) |
+| 角色与医疗 | 部位伤势、医疗消耗、修理、体力、倒地、救援、搬运、护甲判定 | [角色状态](docs/IMPLEMENTATION.md#角色状态医疗倒地与体力) |
+| 轮盘与队伍 | 医疗轮盘、命令轮盘、Delta Spot 布局适配、队伍状态与 HUD | [输入与队伍](docs/IMPLEMENTATION.md#轮盘队伍与命令) |
+| 界面编辑 | 自带 Material 3 设置、HUD 和布局配置、图标与中英文资源 | [界面](docs/IMPLEMENTATION.md#material-3-设置界面) |
+| 模型与资源 | Bedrock 几何/动画解析、Molang 子集、检视渲染、方块与物品资源 | [注册与渲染](docs/IMPLEMENTATION.md#注册内容与资源渲染) |
+
+**边界说明：** 当前 Better Looting 适配包含列表定位、拖拽预览与拾取对接；
+不能据此声称已经完整替换成“默认 5×5、自动向下扩高”的附近掉落物网格。
+项目不是整合包，不附带世界、服务器配置、外部模组或外部模组的完整实现。
+
+## 结构概览
+
+```text
+xero_delta/
+|-- src/main/java/com/xtdpotato/xero_delta/
+|   |-- grid/          # 占格存储、几何、整理与转移
+|   |-- data/          # 规则、角色状态、权限和持久化
+|   |-- trading/       # 交易、回收、配方供需
+|   |-- mail/          # 邮件与附件
+|   |-- network/       # 客户端请求、服务端同步
+|   |-- client/        # 输入、缓存、渲染、叠加层
+|   |-- screen/        # 界面及 material/ 原生控件
+|   |-- mixin/         # 原版与第三方注入
+|   `-- ...            # 注册、物品、方块、菜单、模型等
+|-- src/main/resources/
+|-- src/test/java/
+|-- docs/              # 实现、配置数据、命令文档
+|-- tools/verify_item_detail.gradle
+|-- gradle/wrapper/
+`-- .github/workflows/build.yml
+```
+
+[完整模块结构与职责](docs/IMPLEMENTATION.md#目录结构树)。
+品质、价格与尺寸代码位于 `data/` 等实际包中，不存在单独已实现的
+`quality/`、`pricing/`、`sizing/` 子系统包。
 
 ## 运行环境
 
@@ -35,6 +92,20 @@ Minecraft 1.21.1 / NeoForge / Java 21。项目提供占格物品栏、安全箱�
 Curios 和 Delta Spot 是独立模组，不包含在本仓库的成品 JAR 中。
 兼容层针对 Better Looting、TaCZ、Sophisticated 系列等提供特定适配，
 不代表支持其所有版本和整合包组合。
+
+## 安装与首次使用
+
+1. 使用 Java 21、Minecraft 1.21.1 和相符 NeoForge 的独立测试实例。
+2. 在客户端与服务器安装匹配的本项目 JAR、Curios、Delta Spot。
+   单人游戏同样需要这些依赖。
+3. 先备份世界和 `config/delta_packs/`，再加载已有存档。
+4. 通过游戏按键设置中的中文 `XeroDelta三角洲` / 英文 `XeroDelta`
+   分类检查绑定；默认键及用途见 [输入说明](docs/IMPLEMENTATION.md#默认按键与命令轮盘)。
+5. 管理员使用 `/xero help` 查看入口；规则初始化会修改服务器规则，
+   应在测试世界确认后再使用 `/xero itemrules auto`。
+
+缺少界面不一定是贴图问题：布局开关、当前模式、服务器权限、Curios 槽位和
+是否在仓库附近都会影响入口或操作。排查顺序见实现说明的验证章节。
 
 ## 当前界面实现
 
