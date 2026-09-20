@@ -1,8 +1,36 @@
 Xero Delta third-party notices
 ==============================
 
-Xero Delta is released under the MIT License; see LICENSE.
-External mods retain their own licenses.
+The MIT License applies to software and documentation that the Xero Delta
+contributors have the right to license; see LICENSE. It does not grant rights
+in third-party material that the contributors are not authorized to license.
+External mods and third-party assets retain their own applicable terms.
+
+Medical and equipment assets: rights and authorization notice
+------------------------------------------------------------
+Medical supplies, medicines, injectors, repair kits, helmets, body armor,
+chest rigs, backpacks and other equipment represented in this project may
+include or reference third-party artwork, icons, textures, models, product
+designs, names and marks. Relevant copyrights, trademarks and other rights
+remain with their respective rights holders.
+
+This repository does not provide an individually verified authorization
+inventory for these assets. Their presence in source files, a source archive
+or a compiled JAR is not evidence of permission, a public-domain dedication,
+or an MIT license for the assets themselves. Names such as
+"OfficialItemCatalog" describe an internal content catalog; they do not
+establish official approval, endorsement or a license.
+
+Before copying, modifying, redistributing or commercially using such
+material, verify its source and applicable terms, obtain permission where
+required, or replace it with material you are authorized to use.
+Educational or noncommercial intent, attribution and this notice are not
+statements that permission has been obtained.
+
+For a rights-related report, identify the affected repository paths, the
+original material and the relevant rights or permission information through
+the repository's available contact channels. The project has stopped
+development and does not promise a response time.
 
 The settings UI is implemented with Minecraft widgets and Xero Delta's
 Material 3 drawing helpers. Super Resolution, NanoVG and Yoga are no longer
